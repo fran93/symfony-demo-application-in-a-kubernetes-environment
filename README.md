@@ -1,1 +1,1 @@
-# symfony-demo-application-in-a-kubernetes-environment
+# Work in progress
