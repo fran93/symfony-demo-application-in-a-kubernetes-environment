@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: symfony-node
+spec:
+  selector:
+    app: symfony-pod
+  ports:
+    - name: tcp-80
+      protocol: TCP
+      port: 80
+      targetPort: 80
+    - name: tcp-443
+      protocol: TCP
+      port: 443
+      targetPort: 443
+  type: LoadBalancer

@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: database-pod
+  labels:
+    app: database-pod
+spec:
+  containers:
+    - name: database-pod
+      image: postgres
+      env:
+        - name: POSTGRES_DB
+          value: "demo_database"
+        - name: POSTGRES_PASSWORD
+          value: "password"
+      ports:
+        - containerPort: 5432
