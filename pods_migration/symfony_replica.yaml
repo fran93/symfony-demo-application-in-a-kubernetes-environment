@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: symfony-replica
+  labels:
+    app: symfony-replica
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: symfony-pod
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: symfony-pod
+    spec:
+      containers:
+        - name: symfony-pod
+          image: localhost:5000/symfony-demo
+          imagePullPolicy: IfNotPresent
+          readinessProbe:
+            failureThreshold: 30
+            periodSeconds: 3
+            exec:
+              command:
+                - rm
+                - /app/dummy
+          env:
+            - name: SERVER_NAME
+              value: "localhost, php:80"
+            - name: MERCURE_PUBLISHER_JWT_KEY
+              value: "!ChangeThisMercureHubJWTSecretKey!"
+            - name: MERCURE_SUBSCRIBER_JWT_KEY
+              value: "!ChangeThisMercureHubJWTSecretKey!"
+            - name: TRUSTED_PROXIES
+              value: "127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+            - name: TRUSTED_HOSTS
+              value: "^localhost|php$$"
+            - name: DATABASE_URL
+              value: "postgresql://postgres:password@database-node/demo_database?serverVersion=15&charset=utf8"
+            - name: MERCURE_URL
+              value: "http://php/.well-known/mercure"
+            - name: MERCURE_PUBLIC_URL
+              value: "https://localhost/.well-known/mercure"
+            - name: MERCURE_JWT_SECRET
+              value: "!ChangeThisMercureHubJWTSecretKey!"
+            - name: SYMFONY_VERSION
+              value: ""
+            - name: STABILITY
+              value: "stable"
+            - name: MIGRATION
+              value: "ON"
+          ports:
+            - containerPort: 80
+            - containerPort: 443

@@ -18,6 +18,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 COPY --link frankenphp/conf.d/app.ini $PHP_INI_DIR/conf.d/
 COPY --link --chmod=755 frankenphp/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 COPY --link frankenphp/Caddyfile /etc/caddy/Caddyfile
+COPY --link frankenphp/migration.php /app/migration.php
 
 EXPOSE 80
 EXPOSE 443
