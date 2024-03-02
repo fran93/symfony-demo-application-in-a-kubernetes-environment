@@ -1,16 +1,17 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: symfony-node
+  name: symfony-balancer
 spec:
+  internalTrafficPolicy: Local
   selector:
     app: symfony-pod
   ports:
-    - name: tcp-80
+    - name: http
       protocol: TCP
       port: 80
       targetPort: 80
-    - name: tcp-443
+    - name: https
       protocol: TCP
       port: 443
       targetPort: 443

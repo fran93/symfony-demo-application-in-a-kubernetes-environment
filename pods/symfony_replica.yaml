@@ -21,8 +21,12 @@ spec:
           image: localhost:5000/symfony-demo
           imagePullPolicy: IfNotPresent
           readinessProbe:
-            failureThreshold: 9
-            periodSeconds: 9
+            exec:
+              command:
+                - cat
+                - /app/dummy
+          livenessProbe:
+            initialDelaySeconds: 60
             exec:
               command:
                 - cat

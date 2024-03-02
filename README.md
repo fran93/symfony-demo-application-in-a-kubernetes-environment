@@ -11,7 +11,7 @@
 * The following manifest files create a database pod and a replica set of 2 pods of our Dockerfile.
   * kubectl apply -f pods
 * The following manifest files expose the database internally, and our demo app externally.
-  * kubectl apply -f nodes
+  * kubectl apply -f network
 * minikube tunnel 
 
 # Check demo
@@ -49,9 +49,10 @@
 * Remove secrets from manifest. (They should be stored in a secret manager and injected when necessary)
 * Database should use volumes to store the data. (I think is out of scope of this demo)
 * Use a non-root user in the Dockerfile with only the required permissions.
-* Healthcheck doesn't complain if the website isn't available. For example if the database is down.
+* Creating a Healthcheck endpoint, that also check the connectivity with the database.
 * Creating the symfony project in local once, and then copy only the necessary files, should be more optimal. 
 But for the demo is cleaner to do it inside the docker.
+* The sympfony_replica manifest shouldn't be duplicated in a real project, instead version control should be used.
 
 # Issues found.
 * Alpine linux: Got some libraries issues creating the symphony demo project (sass).

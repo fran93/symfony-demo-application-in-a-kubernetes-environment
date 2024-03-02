@@ -12,7 +12,8 @@ spec:
             - "siege"
             - "-c900"
             - "-t3M"
-            - "https://symfony-node/en/blog"
-      restartPolicy: Never
+            - "symfony-balancer/en/blog"
+      restartPolicy: OnFailure
   backoffLimit: 3
   parallelism: 3
+  completions: 9

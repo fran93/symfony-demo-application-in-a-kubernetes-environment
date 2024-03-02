@@ -2,14 +2,18 @@ apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: symfony-hpa
-  namespace: default
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
     name: symfony-replica
   minReplicas: 2
-  maxReplicas: 9
+  maxReplicas: 18
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 18
+    scaleUp:
+      stabilizationWindowSeconds: 9
   metrics:
     - type: Resource
       resource:
