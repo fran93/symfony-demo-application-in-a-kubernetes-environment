@@ -21,12 +21,17 @@ spec:
           image: localhost:5000/symfony-demo
           imagePullPolicy: IfNotPresent
           readinessProbe:
-            failureThreshold: 30
-            periodSeconds: 3
+            failureThreshold: 9
+            periodSeconds: 9
             exec:
               command:
-                - rm
+                - cat
                 - /app/dummy
+          resources:
+            requests:
+              cpu: "250m"
+            limits:
+              cpu: "500m"
           env:
             - name: SERVER_NAME
               value: "localhost, php:80"
